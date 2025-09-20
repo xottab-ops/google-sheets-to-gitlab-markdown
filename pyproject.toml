@@ -1,0 +1,53 @@
+[project]
+name = "pvb-hashev"
+version = "0.1.1"
+description = "Google sheets with gitlab sync"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "gspread==6.1.4",
+    "google-auth==2.35.0",
+    "google-api-python-client==2.149.0",
+    "google-auth-httplib2==0.2.0",
+    "google-auth-oauthlib==1.2.1",
+    "pandas==2.2.3",
+    "tabulate==0.9.0",
+    "python-gitlab==4.13.0"
+]
+readme = "README.md"
+authors = [
+  {name = "xottab-ops", email = "jassik2002@mail.ru"},
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent"
+]
+
+keywords = [
+    "google-sheets",
+    "gitlab",
+    "synchronization",
+    "markdown",
+    "automation",
+    "data-export",
+    "sync-service"
+]
+
+[project.urls]
+Source = "https://github.com/xottab-ops/google-sheets-to-gitlab-markdown"
+
+[build-system]
+requires = ["setuptools", "uv"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pvb_hashev", "pvb_hashev.*"]
