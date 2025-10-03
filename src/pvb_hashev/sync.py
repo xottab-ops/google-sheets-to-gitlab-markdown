@@ -53,13 +53,14 @@ class SyncService:
         )
         self.check_interval = check_interval
         self.last_check = datetime.now(timezone.utc) - timedelta(minutes=11)
-        self.last_update = datetime.now(timezone.utc) - timedelta(minutes=check_interval)
+        self.last_update = datetime.fromisoformat("1900-01-01T00:00:00+00:00")
         self.logger = get_logger(self.__class__.__name__)
 
     def run_once(self) -> None:
         """
         Run a single synchronization cycle.
         """
+
         updated_dt = datetime.fromisoformat(
             self.google.get_last_update().replace("Z", "+00:00")
         )
@@ -71,10 +72,13 @@ class SyncService:
             self.logger.info("Changes detected, updating GitLab...")
             content = self.google.fetch_data()
             self.gitlab.upload(content)
-            self.last_check = datetime.now(timezone.utc)
-            self.logger.info("File updated in GitLab. New last_check: %s", self.last_check.isoformat())
+
+            self.last_update = datetime.now(timezone.utc)
+            self.logger.info("File updated in GitLab. New last_update: %s", self.last_update.isoformat())
         else:
             self.logger.info("No changes detected.")
+
+        self.last_check = datetime.now(timezone.utc)
 
     def run_forever(self) -> None:
         """
